@@ -11,12 +11,12 @@ export const signUpService = (formData) => {
 
 export const signInService = async (formData) => {
     const res = await api.post('/sign-in/', formData)
-    setTokens(res.data)
+    setTokens(res.data.tokens)
     return res
 }
 
 export const getMeService = () => {
-    return api.get('/auth/me', {
+    return api.get('/me/', {
         headers: {
             Authorization: `Bearer ${getAccessToken()}`
         }

@@ -30,6 +30,7 @@ if (error) return <p>{error}</p>
 return (
     <div>
         <h1>Collections</h1>
+        <Link to='/collections/new'>Create collection</Link>
         {collections.length === 0 ? (
             <p>No collections yet</p>
         ) : (

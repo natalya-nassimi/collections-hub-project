@@ -28,7 +28,7 @@ export const getUserFromToken = () => {
     if (!token) return null
 
 try {
-    const payloadString = token.split('.'[1])
+    const payloadString = token.split('.')[1]
     const payloadJSON = atob(payloadString)
     const { user, exp } = JSON.parse(payloadJSON)
 
