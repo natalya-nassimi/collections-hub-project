@@ -1,0 +1,96 @@
+/* Page wrapper */
+.collections-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 4rem;
+}
+
+/* Page title */
+.collections-title {
+  font-size: 2.2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+/* Create / Sign-in link */
+.collections-page > a {
+  display: inline-block;
+  margin-bottom: 2rem;
+  font-weight: 500;
+  color: #4f46e5;
+  text-decoration: none;
+}
+
+.collections-page > a:hover {
+  text-decoration: underline;
+}
+
+/* Masonry layout */
+.collections-grid {
+  column-count: 3;
+  column-gap: 1.5rem;
+}
+
+/* Responsive columns */
+@media (max-width: 1000px) {
+  .collections-grid {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 600px) {
+  .collections-grid {
+    column-count: 1;
+  }
+}
+
+/* Card */
+.collection-card {
+  break-inside: avoid;
+  background: #ffffff;
+  border-radius: 14px;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.collection-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Image */
+.collection-card img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  max-height: 260px;
+}
+
+/* Card content */
+.collection-content {
+  padding: 1rem 1.1rem 1.3rem;
+}
+
+/* Title link */
+.collection-link {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #111827;
+  text-decoration: none;
+  margin-bottom: 0.35rem;
+}
+
+.collection-link:hover {
+  text-decoration: underline;
+}
+
+/* Description */
+.collection-content p {
+  font-size: 0.95rem;
+  color: #6b7280;
+  line-height: 1.5;
+  margin: 0.25rem 0 0;
+}

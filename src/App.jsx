@@ -5,12 +5,18 @@ import CollectionShow from './components/Collections/CollectionShow'
 import CollectionCreate from './components/CollectionCreate/CollectionCreate'
 import SignUp from './components/SignUp/SignUp'
 import SignIn from './components/SignIn/SignIn'
+import Dashboard from './components/Dashboard/Dashboard'
+import Navbar from './components/Navbar/Navbar'
+import ItemCreate from './components/ItemCreate/ItemCreate'
 
 
 function App() {
 
   return (
     <>
+
+    <Navbar />
+
     <Routes>
       <Route path ='/' element={<Navigate to='/collections' />} />
       <Route path='/collections' element={<Collections />} />
@@ -18,6 +24,8 @@ function App() {
       <Route path='/collections/new' element={<CollectionCreate />} />
       <Route path='/sign-up' element={<SignUp />} />
       <Route path='/sign-in' element={<SignIn />} />
+      <Route path='/dashboard' element={<Dashboard />} />
+      <Route path='/collections/:collectionId/items/new' element={<ItemCreate />} />
     </Routes>
     </>
   )

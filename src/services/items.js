@@ -6,7 +6,7 @@ const api = axios.create({
 })
 
 export const itemCreate = (collectionId, formData) => {
-   return api.post(`/${collectionId}/items`, formData, {
+   return api.post(`/${collectionId}/items/`, formData, {
     headers: {
         Authorization: `Bearer ${getAccessToken()}`
     }

@@ -1,9 +1,19 @@
-import { useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { collectionsCreate } from '../../services/collections'
+import { UserContext } from '../../contexts/UserContext'
 
 const CollectionCreate = () => {
     const navigate = useNavigate()
+    const { user } = useContext(UserContext)
+
+    useEffect(() => {
+        if(!user) {
+            navigate('/sign-in')
+        }
+    }, [user, navigate])
+
+    if (!user) return null
 
     const [formData, setFormData] = useState({
         title: '',
@@ -23,7 +33,7 @@ const CollectionCreate = () => {
             const res = await collectionsCreate(formData)
             navigate(`/collections/${res.data.id}`)
         } catch (error) {
-            console.error(error)
+            console.error('FULL ERROR:', error.response?.data)
             setError('Could not create collection')
             
         }

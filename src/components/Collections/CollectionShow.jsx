@@ -1,13 +1,22 @@
-import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useEffect, useState, useContext } from 'react'
+import { Link, useParams } from 'react-router-dom'
 import { collectionsShow } from '../../services/collections'
+import { UserContext } from '../../contexts/UserContext'
 
 const CollectionShow = () => {
+    const { user } = useContext(UserContext)
     const { id } = useParams()
 
     const [collection, setCollection] = useState(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
+
+    const FIELD_LABELS = {
+        thoughts: 'Thoughts',
+        rating: 'Rating',
+        genre: 'Genre',
+        release_year: 'Release year'
+    }
 
     useEffect(() => {
         const fetchCollection = async () => {
@@ -15,8 +24,7 @@ const CollectionShow = () => {
                 const res = await collectionsShow(id)
                 setCollection(res.data)
             } catch (error) {
-                console.error(error)
-            setError('Could not load collection')
+                setError('Could not load collection')
             } finally {
                 setLoading(false)
             }
@@ -41,16 +49,29 @@ const CollectionShow = () => {
             )}
 
             <h2>Items</h2>
+
+            {!user ? (
+                <Link to='/sign-in'>Sign in to add items</Link>
+            ) : (
+                <Link to={`/collections/${collection.id}/items/new`}>Add item</Link>
+            )}
+
             {collection.items.length === 0 ? (
                 <p>No items yet</p>
             ) : (
-                <ul>
+                <div className='items-grid'>
                     {collection.items.map(item => (
-                        <li key={item.id}>
-                            <p>{item.title}</p> ({item.item_type})
-                        </li>
+                        <div key={item.id} className='item-card'>
+                            {item.image && (
+                                <img src={item.image} alt={item.title} />
+                            )}
+
+
+                            <h3>{item.title}</h3>
+                            <p className='item-type'>{item.item_type}</p>
+                        </div>
                     ))}
-                </ul>
+                </div>
             )}
         </div>
     )
