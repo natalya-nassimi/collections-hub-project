@@ -8,6 +8,9 @@ import SignIn from './components/SignIn/SignIn'
 import Dashboard from './components/Dashboard/Dashboard'
 import Navbar from './components/Navbar/Navbar'
 import ItemCreate from './components/ItemCreate/ItemCreate'
+import CollectionEdit from './components/CollectionEdit/CollectionEdit'
+import ItemEdit from './components/ItemEdit/ItemEdit'
+import ProfileEdit from './components/ProfileEdit/ProfileEdit'
 
 
 function App() {
@@ -26,6 +29,9 @@ function App() {
       <Route path='/sign-in' element={<SignIn />} />
       <Route path='/dashboard' element={<Dashboard />} />
       <Route path='/collections/:collectionId/items/new' element={<ItemCreate />} />
+      <Route path='/collections/:id/edit' element={<CollectionEdit/>}/>
+      <Route path='/collections/:collectionId/items/:itemId/edit' element={<ItemEdit />} />
+      <Route path='/profile/edit' element={<ProfileEdit />} />
     </Routes>
     </>
   )

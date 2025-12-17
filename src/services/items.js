@@ -14,7 +14,7 @@ export const itemCreate = (collectionId, formData) => {
 }
 
 export const itemUpdate = (collectionId, itemId, formData) => {
-    return api.put(`/${collectionId}/items/${itemId}`, formData, {
+    return api.put(`/${collectionId}/items/${itemId}/`, formData, {
         headers: {
             Authorization: `Bearer ${getAccessToken()}`
         }

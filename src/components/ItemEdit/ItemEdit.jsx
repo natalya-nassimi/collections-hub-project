@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { itemCreate } from '../../services/items'
-import ImageUploadField from '../ImageUploadField/ImageUploadField';
+import { itemUpdate } from '../../services/items'
+import { collectionsShow } from '../../services/collections'
+import ImageUploadField from '../ImageUploadField/ImageUploadField'
 
 const ITEM_TYPE_FIELDS = {
     book: [
@@ -79,20 +80,8 @@ const ITEM_TYPE_FIELDS = {
 
 }
 
-const REQUIRED_FIELDS = {
-    'book': ['author', 'pages'],
-    'music': ['artist'],
-    'movie': ['director'],
-    'game': ['platform'],
-    'restaurant': ['cuisine', 'location'],
-    'travel': ['country'],
-    'workout': ['exercise'],
-    'product': ['brand'],
-    'event': ['event_name'],
-}
-
-const ItemCreate = () => {
-    const { collectionId } = useParams()
+const ItemEdit = () => {
+    const { collectionId, itemId } = useParams()
     const navigate = useNavigate()
 
     const [formData, setFormData] = useState({
@@ -100,27 +89,56 @@ const ItemCreate = () => {
         item_type: '',
         image: '',
         link: '',
-        details: {},
+        details: {}
     })
 
+    const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
+
+    useEffect(() => {
+        const fetchItemFromCollection = async () => {
+            try {
+                const res = await collectionsShow(collectionId)
+                const item = res.data.items.find(
+                    i => i.id === Number(itemId)
+                )
+
+                if (!item) {
+                    setError('Item not found')
+                    return
+                }
+
+                setFormData({
+                    title: item.title,
+                    item_type: item.item_type,
+                    image: item.image || '',
+                    link: item.link || '',
+                    details: item.details || {}
+                })
+            } catch (error) {
+                setError('Could not load item')
+            } finally {
+                setLoading(false)
+            }
+        }
+        fetchItemFromCollection()
+    }, [collectionId, itemId])
 
     const handleBaseChange = (e) => {
         const { name, value } = e.target
         setFormData(prev => ({
             ...prev,
-            [name]: value,
-            ...(name === 'item_type' ? { details: {} } : {})
+            [name]: value
         }))
     }
 
-    const handleDetailsChange = (e) => {
+    const handleDetailsChange = e => {
         const { name, value } = e.target
         setFormData(prev => ({
             ...prev,
             details: {
                 ...prev.details,
-                [name]: value,
+                [name]: value
             }
         }))
     }
@@ -129,63 +147,30 @@ const ItemCreate = () => {
         setFormData({ ...formData, image: imageURL})
     }
 
-    const validateForm = () => {
-        const requiredFields = REQUIRED_FIELDS[formData.item_type] || []
-        const missing = requiredFields.filter(
-            field => !formData.details[field]
-        )
-
-        if (missing.length > 0) {
-            setError(`Missing required fields: ${missing.join(', ')}`)
-            return false
-        }
-
-        return true
-    }
-
     const handleSubmit = async (e) => {
         e.preventDefault()
-        if (!validateForm()) return
         try {
-            await itemCreate(collectionId, formData)
+            await itemUpdate(collectionId, itemId, formData)
             navigate(`/collections/${collectionId}`)
         } catch (error) {
-            console.log('FULL ERROR:', error.response?.data)
-            console.error(error)
-            setError('Could not create item')
+            console.log(error.response.data)
+            setError('Could not update item')
         }
     }
 
-    const item_type = formData.item_type
+    if (loading) return <p>Loading item...</p>
+    if (error) return <p>{error}</p>
 
     return (
         <div>
-            <h1>Add Item</h1>
-
-            {error && <p>{error}</p>}
-
+            <h1>Edit Item</h1>
             <form onSubmit={handleSubmit}>
                 <input
-                    name="title"
-                    placeholder="Title"
+                    name='title'
                     value={formData.title}
                     onChange={handleBaseChange}
                     required
                 />
-
-                <select
-                    name="item_type"
-                    value={formData.item_type}
-                    onChange={handleBaseChange}
-                    required
-                >
-                    <option value="">Select type</option>
-                    {Object.keys(ITEM_TYPE_FIELDS).map(type => (
-                        <option key={type} value={type}>
-                            {type}
-                        </option>
-                    ))}
-                </select>
 
                 <ImageUploadField
                     labelText="Upload an image"
@@ -195,30 +180,29 @@ const ItemCreate = () => {
                 />
 
                 <input
-                    type='text'
                     name='link'
-                    placeholder='Link (optional)'
                     value={formData.link}
                     onChange={handleBaseChange}
+                    placeholder='Link'
                 />
 
-                {formData.item_type &&
-                    ITEM_TYPE_FIELDS[formData.item_type].map(field => (
-                        <input
-                            key={field.name}
-                            name={field.name}
-                            placeholder={field.label}
-                            type={field.type || 'text'}
-                            value={formData.details[field.name] || ''}
-                            onChange={handleDetailsChange}
-                        />
-                    ))}
+                {ITEM_TYPE_FIELDS[formData.item_type]?.map(field => (
+                    <input
+                        key={field.name}
+                        name={field.name}
+                        type={field.type || 'text'}
+                        value={formData.details[field.name] || ''}
+                        onChange={handleDetailsChange}
+                        placeholder={field.label}
+                    />
+                ))}
 
-                <button type="submit">Create Item</button>
+                <button type='submit'>Save Changes</button>
+
             </form>
+
         </div>
     )
-
 }
 
-export default ItemCreate
+export default ItemEdit

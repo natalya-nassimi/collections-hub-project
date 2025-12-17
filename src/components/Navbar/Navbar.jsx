@@ -1,6 +1,8 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useContext } from 'react'
 import { UserContext } from '../../contexts/UserContext'
+import './Navbar.css'
+import logo from '../../assets/logo_new.png'
 
 const Navbar = () => {
     const { user, signOut } = useContext(UserContext)
@@ -13,9 +15,11 @@ const Navbar = () => {
 
     return (
         <nav className='navbar'>
-            <Link to={ user ? '/collections' : '/'}>
-                <h2 className='logo'>Collections</h2>
-            </Link>
+            <div className='logo'>
+                <Link to= "/collections" className='logo-link'>
+                <img src={logo} alt='app logo' className='navbar-logo' />
+                </Link>
+            </div>
 
             <div className='nav-links'>
                 {!user ? (
@@ -27,7 +31,7 @@ const Navbar = () => {
                     <>
                         <Link to='/dashboard'>My Dashboard</Link>
                         <Link to='/collections/new'>Create Collection</Link>
-                        <button on onClick={handleSignOut}>Sign Out</button>
+                        <button onClick={handleSignOut}>Sign Out</button>
                     </>
                 )}
             </div>

@@ -49,7 +49,7 @@ const Dashboard = () => {
             <section>
                 <h2>Profile</h2>
                 <p>{profile?.bio || 'Edit your profile to add a bio'}</p>
-                <Link to='profile/edit'>Edit profile</Link>
+                <Link to='/profile/edit'>Edit profile</Link>
             </section>
 
             <section>
