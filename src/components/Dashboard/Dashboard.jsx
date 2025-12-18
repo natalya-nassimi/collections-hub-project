@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom'
 import { UserContext } from '../../contexts/UserContext'
 import { getMyProfile } from '../../services/profile'
 import { collectionsIndex } from '../../services/collections'
+import { AVATARS } from '../../constants/avatars'
 
 const Dashboard = () => {
     const { user } = useContext(UserContext)
@@ -11,6 +12,9 @@ const Dashboard = () => {
     const [profile, setProfile] = useState(null)
     const [collections, setCollections] = useState([])
     const [loading, setLoading] = useState(null)
+
+    const avatarKey = profile?.avatar
+    const avatarSource = AVATARS.find(a => a.key === avatarKey)?.src
 
     useEffect(() => {
         if (!user) navigate('sign-in')
@@ -45,6 +49,9 @@ const Dashboard = () => {
     return (
         <div>
             <h1>{user.username}'s Dashboard</h1>
+            {avatarSource && (
+                <img src={avatarSource} className='dashboard-avatar'/>
+            )}
 
             <section>
                 <h2>Profile</h2>

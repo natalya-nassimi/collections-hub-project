@@ -102,19 +102,6 @@ const CollectionShow = () => {
 
             <h2>Items</h2>
 
-            {user && collection.user === user.id && (
-                <Link to={`/collections/${collection.id}/items/new`}>
-                    Add Item
-                </Link>
-            )}
-
-            {user && collection.user !== user.id &&(
-                <>
-                    <p className='hint'>Only the owner can add items!</p>
-                    <Link to='/sign-in'>Sign in to create your own collection!</Link>
-                </>
-            )}
-
             {collection.items.length === 0 ? (
                 <p>No items yet</p>
             ) : (
