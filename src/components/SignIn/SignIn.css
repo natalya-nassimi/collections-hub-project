@@ -1,0 +1,76 @@
+.signin-container {
+    max-width: 420px;
+    margin: 50px auto;
+    padding: 30px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border: 5px #4e47db;
+    border-style: double;
+    border-radius: 8px;
+}
+
+.signin-container h1 {
+    font-size: 20px;
+    font-weight: 300;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.signin-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-control-sign-in {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-control-sign-in input {
+    font-size: 15px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+    background: #fff;
+    outline: none;
+    transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-control-sign-in input:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+.signin-btn {
+    margin-top: 8px;
+    padding: 12px;
+    border-radius: 15px;
+    border: none;
+    background: rgba(165, 157, 168, 0.382);
+    color: #585656;
+    font-size: 15px;
+    text-transform: uppercase;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.signin-btn:hover {
+    background: #6365f19c;
+}
+
+.signin-btn:active {
+    transform: scale(0.98);
+}
+
+.error-message {
+    color: #000000;
+    border: solid 1px red;
+    margin-bottom: 15px;
+    text-align: center;
+    padding: 7px;
+    border-radius: 8px;
+    font-size: 15px;
+    text-transform: uppercase;
+}

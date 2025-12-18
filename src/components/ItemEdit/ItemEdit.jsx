@@ -3,6 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { itemUpdate } from '../../services/items'
 import { collectionsShow } from '../../services/collections'
 import ImageUploadField from '../ImageUploadField/ImageUploadField'
+import LoadingIcon from '../LoadingIcon/LoadingIcon'
+import './ItemEdit.css'
 
 const ITEM_TYPE_FIELDS = {
     book: [
@@ -158,22 +160,25 @@ const ItemEdit = () => {
         }
     }
 
-    if (loading) return <p>Loading item...</p>
+    if (loading) return <LoadingIcon />
     if (error) return <p>{error}</p>
 
     return (
-        <div>
-            <h1>Edit Item</h1>
-            <form onSubmit={handleSubmit}>
+        <div className='item-edit'>
+            <h1 className='item-edit-title'>Edit Item</h1>
+            <form className='item-edit-form' onSubmit={handleSubmit}>
                 <input
                     name='title'
                     value={formData.title}
                     onChange={handleBaseChange}
+                    className='item-edit-input'
                     required
                 />
 
+                <p className='item-edit-pic-message'>Upload an image below (optional)</p>
                 <ImageUploadField
-                    labelText="Upload an image"
+                    labelText=""
+                    className='item-edit-image'
                     fieldName='Image'
                     setImage={setItemImage}
                     existingImage={formData.image}
@@ -184,6 +189,7 @@ const ItemEdit = () => {
                     value={formData.link}
                     onChange={handleBaseChange}
                     placeholder='Link'
+                    className='item-edit-input'
                 />
 
                 {ITEM_TYPE_FIELDS[formData.item_type]?.map(field => (
@@ -193,11 +199,12 @@ const ItemEdit = () => {
                         type={field.type || 'text'}
                         value={formData.details[field.name] || ''}
                         onChange={handleDetailsChange}
+                        className='item-edit-input'
                         placeholder={field.label}
                     />
                 ))}
 
-                <button type='submit'>Save Changes</button>
+                <button className='item-edit-button' type='submit'>Save Changes</button>
 
             </form>
 

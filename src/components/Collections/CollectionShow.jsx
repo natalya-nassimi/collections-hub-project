@@ -3,6 +3,8 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import { collectionsShow, collectionsDelete } from '../../services/collections'
 import { UserContext } from '../../contexts/UserContext'
 import { itemDelete } from '../../services/items'
+import LoadingIcon from '../LoadingIcon/LoadingIcon'
+import './CollectionShow.css'
 
 const CollectionShow = () => {
     const { user } = useContext(UserContext)
@@ -33,7 +35,6 @@ const CollectionShow = () => {
         return Object.entries(item.details).map(([key, value]) => {
             if (!value) return null
 
-            // Make labels human-readable
             const label = key
                 .replace(/_/g, ' ')
                 .replace(/\b\w/g, char => char.toUpperCase())
@@ -71,83 +72,98 @@ const CollectionShow = () => {
         }
     }
 
-    if (loading) return <p>Loading collection...</p>
+    if (loading) return <LoadingIcon />
     if (error) return <p>{error}</p>
 
     return (
         <div className="collection-show">
-            <h1>{collection.title}</h1>
+            <div className='collection-show-content'>
+                <h1 className='collection-show-title'>{collection.title}</h1>
+                {collection.description && <p className='collection-show-description'>{collection.description}</p>}
 
-            {user && user.id === collection.user && (
-                <Link to={`/collections/${collection.id}/edit`}>
-                    Edit Collection
+
+                {collection.image && (
+                    <img
+                        src={collection.image}
+                        alt={collection.title}
+                        className="collection-image"
+                    />
+                )}
+                <div className='collection-show-actions'>
+                    {user && user.id === collection.user && (
+                        <Link to={`/collections/${collection.id}/edit`} className='collection-show-edit'>
+                            Edit Collection
+                        </Link>
+                    )}
+
+                    {user && user.id === collection.user && (
+                        <button onClick={handleDelete} className='collection-show-delete'>
+                            Delete Collection
+                        </button>
+                    )}
+                </div>
+            </div>
+
+            <h2 className='item-title'>Items</h2>
+
+            {user && collection.user === user.id && (
+                <Link to={`/collections/${collection.id}/items/new`}>
+                    Add Item
                 </Link>
             )}
 
-            {user && user.id === collection.user && (
-                <button onClick={handleDelete}>
-                    Delete Collection
-                </button>
+            {user && collection.user !== user.id && (
+                <>
+                    <p className='hint'>Only the owner can add items!</p>
+                    <Link to='/sign-in'>Sign in to create your own collection!</Link>
+                </>
             )}
-
-            {collection.description && <p>{collection.description}</p>}
-
-            {collection.image && (
-                <img
-                    src={collection.image}
-                    alt={collection.title}
-                    className="collection-image"
-                />
-            )}
-
-            <h2>Items</h2>
 
             {collection.items.length === 0 ? (
-                <p>No items yet</p>
+                <p className='empty-state'>No items yet</p>
             ) : (
                 <div className="items-grid">
                     {collection.items.map(item => {
-                        return(
-                        <div key={item.id} className="item-card">
-                            {/* Image */}
-                            {item.image && (
-                                <img
-                                    src={item.image}
-                                    alt={item.title}
-                                    className="item-image"
-                                />
-                            )}
-                            <h3>{item.title}</h3>
-                            <p className="item-type">{item.item_type}</p>
+                        return (
+                            <div key={item.id} className="item-card">
+                                {item.image && (
+                                    <img
+                                        src={item.image}
+                                        alt={item.title}
+                                        className="item-image"
+                                    />
+                                )}
+                                <h3>{item.title}</h3>
+                                <p className="item-type">{item.item_type}</p>
 
-                            <div className="item-details">
-                                {renderItemDetails(item)}
+                                <div className="item-details">
+                                    {renderItemDetails(item)}
+                                </div>
+
+                                {item.link && (
+                                    <a
+                                        href={item.link}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        className="item-link"
+                                    >
+                                        Open link
+                                    </a>
+                                )}
+
+                                {user && user.id === collection.user && (
+                                    <>
+                                        <Link to={`/collections/${collection.id}/items/${item.id}/edit`}>Edit Item</Link>
+                                        <button onClick={() => handlDeleteItem(item.id)}>Delete Item</button>
+                                    </>
+                                )}
                             </div>
-
-                            {item.link && (
-                                <a
-                                    href={item.link}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    className="item-link"
-                                >
-                                    Open link
-                                </a>
-                            )}
-
-                            {user && user.id === collection.user && (
-                                <>
-                                    <Link to={`/collections/${collection.id}/items/${item.id}/edit`}>Edit Item</Link>
-
-                                    <button onClick={() => handlDeleteItem(item.id)}>Delete Item</button>
-                                </>
-                            )}
-                        </div>
-                )})}
+                        )
+                    })}
                 </div>
             )}
         </div>
     )
 }
 
-    export default CollectionShow
+export default CollectionShow

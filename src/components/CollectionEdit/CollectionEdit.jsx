@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { collectionsShow, collectionsUpdate } from '../../services/collections'
 import ImageUploadField from '../ImageUploadField/ImageUploadField'
+import LoadingIcon from '../LoadingIcon/LoadingIcon'
+import './CollectionEdit.css'
 
 const CollectionEdit = () => {
     const { id } = useParams()
@@ -55,18 +57,19 @@ const CollectionEdit = () => {
         }
     }
 
-    if (loading) return <p>Loading...</p>
+    if (loading) return <LoadingIcon />
 
     return (
-        <div>
-            <h1>Edit Collection</h1>
-            {error & <p>{error}</p>}
+        <div className='collection-edit'>
+            <h1 className='collection-edit-title'>Edit Collection</h1>
+            {error && <p className='collection-edit-error'>{error}</p>}
 
-            <form onSubmit={handleSubmit}>
+            <form className='collection-edit-form' onSubmit={handleSubmit}>
                 <input
                     name='title'
                     value={formData.title}
                     onChange={handleChange}
+                    className='collection-edit-input'
                     required
                 />
 
@@ -74,16 +77,20 @@ const CollectionEdit = () => {
                     name='description'
                     value={formData.description}
                     onChange={handleChange}
+                    className='collection-edit-textarea'
                 />
-
+                
+                <p className='collection-edit-pic-message'>Upload an image below (optional)</p>
+                <div className='collection-edit-image'>
                 <ImageUploadField
-                    labelText="Upload an image"
+                    labelText=""
                     fieldName='Image'
                     setImage={setCollectionImage}
                     existingImage={formData.image}
                 />
+                </div>
 
-                <button type='submit'>Save Changes</button>
+                <button className='collection-edit-button' type='submit'>Save Changes</button>
 
             </form>
         </div>

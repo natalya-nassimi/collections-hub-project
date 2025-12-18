@@ -27,18 +27,18 @@ export const getUserFromToken = () => {
     const token = getAccessToken()
     if (!token) return null
 
-try {
-    const payloadString = token.split('.')[1]
-    const payloadJSON = atob(payloadString)
-    const { user, exp } = JSON.parse(payloadJSON)
+    try {
+        const payloadString = token.split('.')[1]
+        const payloadJSON = atob(payloadString)
+        const { user, exp } = JSON.parse(payloadJSON)
 
-    if (exp < Date.now() / 1000) {
+        if (exp < Date.now() / 1000) {
+            removeTokens()
+            return null
+        }
+        return user
+    } catch {
         removeTokens()
         return null
-    }
-    return user
-    } catch {
-    removeTokens()
-    return null
     }
 }

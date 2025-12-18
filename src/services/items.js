@@ -6,11 +6,11 @@ const api = axios.create({
 })
 
 export const itemCreate = (collectionId, formData) => {
-   return api.post(`/${collectionId}/items/`, formData, {
-    headers: {
-        Authorization: `Bearer ${getAccessToken()}`
-    }
-   })
+    return api.post(`/${collectionId}/items/`, formData, {
+        headers: {
+            Authorization: `Bearer ${getAccessToken()}`
+        }
+    })
 }
 
 export const itemUpdate = (collectionId, itemId, formData) => {

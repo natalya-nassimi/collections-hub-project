@@ -1,0 +1,92 @@
+.collection-create {
+    max-width: 420px;
+    margin: 50px auto;
+    padding: 0 16px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border: 5px #4e47db;
+    padding: 30px;
+    border-radius: 8px;
+    border-style: double;
+}
+
+.collection-create-title {
+    font-size: 20px;
+    font-weight: 300;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 6px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.collection-create-error {
+    color: #e63946;
+    margin-bottom: 16px;
+    text-align: center;
+    font-size: 12px;
+}
+
+.collection-create-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.collection-create-input,
+.collection-create-textarea {
+    font-size: 15px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+    background: #fff;
+    outline: none;
+    transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+.collection-create-textarea {
+    resize: none;
+    min-height: 90px;
+}
+
+.collection-create-input:focus,
+.collection-create-textarea:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+.collection-create-image {
+    margin-top: 4px;
+}
+
+.collection-create-button {
+    margin-top: 8px;
+    padding: 12px;
+    border-radius: 15px;
+    border: none;
+    background: rgba(165, 157, 168, 0.382);
+    color: #585656;
+    font-size: 15px;
+    text-transform: uppercase;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.collection-create-button:hover {
+    background: #6365f19c;
+}
+
+.collection-create-button:active {
+    transform: scale(0.98);
+}
+
+.collection-create-pic-message {
+    font-size: 12px;
+    font-weight: 200;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-align: center;
+    margin-bottom: 0;
+}

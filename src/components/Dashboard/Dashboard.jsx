@@ -4,6 +4,8 @@ import { UserContext } from '../../contexts/UserContext'
 import { getMyProfile } from '../../services/profile'
 import { collectionsIndex } from '../../services/collections'
 import { AVATARS } from '../../constants/avatars'
+import LoadingIcon from '../LoadingIcon/LoadingIcon'
+import './Dashboard.css'
 
 const Dashboard = () => {
     const { user } = useContext(UserContext)
@@ -11,15 +13,16 @@ const Dashboard = () => {
 
     const [profile, setProfile] = useState(null)
     const [collections, setCollections] = useState([])
-    const [loading, setLoading] = useState(null)
+    const [loading, setLoading] = useState(true)
 
     const avatarKey = profile?.avatar
-    const avatarSource = AVATARS.find(a => a.key === avatarKey)?.src
+    const avatarSource = AVATARS.find(a => a.key === avatarKey)?.src ||
+        AVATARS.find(a => a.key === 'defaultAvatar')?.src
 
     useEffect(() => {
-        if (!user) navigate('sign-in')
+        if (!user) navigate('/collections')
     }, [user, navigate])
-    
+
     useEffect(() => {
         const fetchDashboard = async () => {
             try {
@@ -37,40 +40,56 @@ const Dashboard = () => {
                 setCollections(myCollections)
             } finally {
                 setLoading(false)
-            }    
+            }
         }
 
         if (user) fetchDashboard()
-        } ,[user])
+    }, [user])
 
-        if (!user) return null
-        if(loading) return <p>Loading dashboard...</p>
+    if (!user) return null
+    if (loading) return <LoadingIcon />
 
     return (
-        <div>
-            <h1>{user.username}'s Dashboard</h1>
-            {avatarSource && (
-                <img src={avatarSource} className='dashboard-avatar'/>
-            )}
+        <div className='dashboard-page'>
+            <header className='dashboard-header'>
+                    <img src={avatarSource}
+                        className='dashboard-avatar'
+                        alt='user-avatar'
+                    />
 
-            <section>
-                <h2>Profile</h2>
-                <p>{profile?.bio || 'Edit your profile to add a bio'}</p>
-                <Link to='/profile/edit'>Edit profile</Link>
-            </section>
+                <div className='dashboard-user'>
+                    <h1>{user.username}</h1>
+                    <p className='dashboard-bio'>{profile?.bio || 'Edit your profile to add a bio'}</p>
+                    <Link to='/profile/edit' className='edit-profile'>Edit profile</Link>
+                </div>
+            </header>
 
-            <section>
+            <section className='dashboard-collections'>
                 <h2>My Collections</h2>
                 {collections.length === 0 ? (
-                    <p>You have not created any collections yet</p>
+                    <p className='empty-state'>You have not created any collections yet</p>
                 ) : (
-                    <ul>
+                    <div className='collections-grid'>
                         {collections.map(c => (
-                            <li key={c.id}>
-                                <Link to={`/collections/${c.id}`}>{c.title}</Link>
-                            </li>
+                            <Link
+                                to={`/collections/${c.id}`}
+                                key={c.id}
+                                className='collection-card'
+                            >
+                                {c.image && (
+                                    <img
+                                        src={c.image}
+                                        alt={c.title}
+                                        className='collection-card-image'
+                                    />
+                                )}
+                                <div className='collection-card-content'>
+                                    <h3 className='collection-card-title'>{c.title}</h3>
+                                    <p className='collection-card-description'>{c.description}</p>
+                                </div>
+                            </Link>
                         ))}
-                    </ul>
+                    </div>
                 )}
             </section>
         </div>

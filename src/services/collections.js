@@ -33,6 +33,6 @@ export const collectionsDelete = (collectionId) => {
     return api.delete(`/${collectionId}/`, {
         headers: {
             Authorization: `Bearer ${getAccessToken()}`
-    }
-})
+        }
+    })
 }

@@ -1,4 +1,4 @@
-.profile-edit {
+.item-edit {
     max-width: 420px;
     margin: 50px auto;
     padding: 30px;
@@ -8,7 +8,7 @@
     border-radius: 8px;
 }
 
-.profile-edit-title {
+.item-edit-title {
     font-size: 20px;
     font-weight: 300;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -18,13 +18,13 @@
     margin-bottom: 15px;
 }
 
-.profile-edit-form {
+.item-edit-form {
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
-.profile-edit-textarea {
+.item-edit-input {
     font-size: 15px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     padding: 12px 14px;
@@ -32,17 +32,15 @@
     border: 1px solid #e5e7eb;
     background: #fff;
     outline: none;
-    resize: none;
-    min-height: 100px;
     transition: border 0.2s ease, box-shadow 0.2s ease;
 }
 
-.profile-edit-textarea:focus {
+.item-edit-input:focus {
     border-color: #6366f1;
     box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
 }
 
-.profile-edit-subtitle {
+.item-edit-pic-message {
     font-size: 12px;
     font-weight: 200;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -52,34 +50,11 @@
     margin-bottom: 12px;
 }
 
-.avatar-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
-    gap: 12px;
-    justify-items: center;
-    margin-bottom: 10px;
+.item-edit-image {
+    margin-top: 4px;
 }
 
-.avatar-option {
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    object-fit: cover;
-    cursor: pointer;
-    border: 2px solid transparent;
-    transition: transform 0.15s ease, border 0.15s ease;
-}
-
-.avatar-option:hover {
-    transform: scale(1.05);
-}
-
-.avatar-option.selected {
-    border-color: #6366f1;
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
-}
-
-.profile-edit-button {
+.item-edit-button {
     margin-top: 8px;
     padding: 12px;
     border-radius: 15px;
@@ -93,10 +68,10 @@
     transition: background 0.2s ease, transform 0.1s ease;
 }
 
-.profile-edit-button:hover {
+.item-edit-button:hover {
     background: #6365f19c;
 }
 
-.profile-edit-button:active {
+.item-edit-button:active {
     transform: scale(0.98);
 }

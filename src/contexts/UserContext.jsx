@@ -4,7 +4,7 @@ import { getUserFromToken, removeTokens } from '../utils/token'
 const UserContext = createContext()
 
 const UserProvider = ({ children }) => {
-    
+
     const [user, setUser] = useState(getUserFromToken())
 
     const signOut = () => {
@@ -13,10 +13,10 @@ const UserProvider = ({ children }) => {
     }
 
     return (
-        <UserContext.Provider value = {{ user, setUser, signOut }}>
+        <UserContext.Provider value={{ user, setUser, signOut }}>
             {children}
         </UserContext.Provider>
     )
 }
 
-export { UserContext, UserProvider}
+export { UserContext, UserProvider }

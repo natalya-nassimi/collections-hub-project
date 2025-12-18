@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { itemCreate } from '../../services/items'
 import ImageUploadField from '../ImageUploadField/ImageUploadField';
+import './ItemCreate.css'
 
 const ITEM_TYPE_FIELDS = {
     book: [
@@ -159,17 +160,18 @@ const ItemCreate = () => {
     const item_type = formData.item_type
 
     return (
-        <div>
-            <h1>Add Item</h1>
+        <div className='item-create'>
+            <h1 className='item-create-title'>Add Item</h1>
 
-            {error && <p>{error}</p>}
+            {error && <p className='item-create-error'>{error}</p>}
 
-            <form onSubmit={handleSubmit}>
+            <form className='item-create-form' onSubmit={handleSubmit}>
                 <input
                     name="title"
                     placeholder="Title"
                     value={formData.title}
                     onChange={handleBaseChange}
+                    className='item-create-input'
                     required
                 />
 
@@ -177,6 +179,7 @@ const ItemCreate = () => {
                     name="item_type"
                     value={formData.item_type}
                     onChange={handleBaseChange}
+                    className='item-create-select'
                     required
                 >
                     <option value="">Select type</option>
@@ -186,20 +189,24 @@ const ItemCreate = () => {
                         </option>
                     ))}
                 </select>
-
+                
+                <div className='item-create-image'>
+                <p className='item-create-pic-message'>Upload an Image Below (optional)</p>
                 <ImageUploadField
-                    labelText="Upload an image"
+                    labelText=""
                     fieldName='Image'
                     setImage={setItemImage}
                     existingImage={formData.image}
                 />
+                </div>
 
                 <input
                     type='text'
                     name='link'
-                    placeholder='Link (optional)'
+                    placeholder='Link'
                     value={formData.link}
                     onChange={handleBaseChange}
+                    className='item-create-input'
                 />
 
                 {formData.item_type &&
@@ -211,10 +218,11 @@ const ItemCreate = () => {
                             type={field.type || 'text'}
                             value={formData.details[field.name] || ''}
                             onChange={handleDetailsChange}
+                            className='item-create-input'
                         />
                     ))}
 
-                <button type="submit">Create Item</button>
+                <button type="submit" className='item-create-button'>Create Item</button>
             </form>
         </div>
     )

@@ -1,32 +1,43 @@
-.signup-container {
+.item-create {
     max-width: 420px;
     margin: 50px auto;
-    padding: 30px;
+    padding: 0 16px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     border: 5px #4e47db;
-    border-style: double;
+    padding: 30px;
     border-radius: 8px;
+    border-style: double;
 }
 
-.signup-container h1 {
+.item-create-title {
     font-size: 20px;
     font-weight: 300;
-    margin-bottom: 24px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 6px;
     text-align: center;
+    margin-bottom: 15px;
 }
 
-.signup-form {
+.item-create-error {
+    color: #000000;
+    border: solid 1px red;
+    margin-bottom: 15px;
+    text-align: center;
+    padding: 7px;
+    border-radius: 8px;
+    font-size: 15px;
+    text-transform: uppercase;
+}
+
+.item-create-form {
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
-.form-control-sign-up {
-    display: flex;
-    flex-direction: column;
-}
-
-.form-control-sign-up input {
+.item-create-input,
+.item-create-select {
     font-size: 15px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     padding: 12px 14px;
@@ -37,12 +48,16 @@
     transition: border 0.2s ease, box-shadow 0.2s ease;
 }
 
-.form-control-sign-up input:focus {
+.item-create-input:focus,
+.item-create-select:focus {
     border-color: #6366f1;
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
 }
 
-.signup-btn {
+.item-create-image {
+    margin-top: 4px;
+}
+
+.item-create-button {
     margin-top: 8px;
     padding: 12px;
     border-radius: 15px;
@@ -56,21 +71,20 @@
     transition: background 0.2s ease, transform 0.1s ease;
 }
 
-.signup-btn:hover {
+.item-create-button:hover {
     background: #6365f19c;
 }
 
-.signup-btn:active {
+.item-create-button:active {
     transform: scale(0.98);
 }
 
-.error-message {
-    color: #000000;
-    border: solid 1px red;
-    margin-bottom: 15px;
-    text-align: center;
-    padding: 7px;
-    border-radius: 8px;
-    font-size: 15px;
+.item-create-pic-message {
+    font-size: 12px;
+    font-weight: 200;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     text-transform: uppercase;
+    letter-spacing: 3px;
+    text-align: center;
+    margin-bottom: 12px;
 }

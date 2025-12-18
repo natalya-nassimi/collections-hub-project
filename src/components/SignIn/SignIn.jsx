@@ -3,10 +3,11 @@ import { signInService } from '../../services/auth'
 import { useState, useContext } from 'react'
 import { useNavigate } from 'react-router'
 import { getUserFromToken } from '../../utils/token'
+import './SignIn.css'
 
 const SignIn = () => {
 
-    const [ formData, setFormData] = useState({
+    const [formData, setFormData] = useState({
         username: '',
         password: ''
     })
@@ -26,37 +27,37 @@ const SignIn = () => {
             setUser(getUserFromToken())
             navigate('/collections')
         } catch (error) {
-            if(error.response?.data) {
+            if (error.response?.data) {
                 setError(error.response.data)
             } else {
                 setError({ message: 'Invalid credentials' })
             }
         }
     }
-    
+
     return (
         <>
-        <div className='signin-container'>
-            <h1>Sign In</h1>
-            <form className='signin-form' onSubmit={handleSubmit}>
+            <div className='signin-container'>
+                <h1>Sign In</h1>
+                <form className='signin-form' onSubmit={handleSubmit}>
 
-                <div className='form-control-sign-in'>
-                    <label hidden htmlFor='username'>Username</label>
-                    <input type='text' name='username' id='username' placeholder='Username' onChange={handleChange} required />
-                </div>
+                    <div className='form-control-sign-in'>
+                        <label hidden htmlFor='username'>Username</label>
+                        <input type='text' name='username' id='username' placeholder='Username' onChange={handleChange} required />
+                    </div>
 
-                <div className='form-control-sign-in'>
-                    <label hidden htmlFor='password'>Password</label>
-                    <input type='password' name='password' id='password' placeholder='Password' onChange={handleChange} required />
-                </div>
+                    <div className='form-control-sign-in'>
+                        <label hidden htmlFor='password'>Password</label>
+                        <input type='password' name='password' id='password' placeholder='Password' onChange={handleChange} required />
+                    </div>
 
-                <button className='signin-btn' type='submit'>Sign In</button>
+                    <button className='signin-btn' type='submit'>Sign In</button>
 
-                {error.detail && <p className='error-message'>{error.detail}</p>}
-                {error.message && <p className='error-message'>{error.message}</p> }
+                    {error.detail && <p className='error-message'>{error.detail}</p>}
+                    {error.message && <p className='error-message'>{error.message}</p>}
 
-            </form>
-        </div>
+                </form>
+            </div>
         </>
     )
 }

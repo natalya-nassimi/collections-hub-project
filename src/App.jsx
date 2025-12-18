@@ -18,21 +18,21 @@ function App() {
   return (
     <>
 
-    <Navbar />
+      <Navbar />
 
-    <Routes>
-      <Route path ='/' element={<Navigate to='/collections' />} />
-      <Route path='/collections' element={<Collections />} />
-      <Route path='/collections/:id' element={<CollectionShow />} />
-      <Route path='/collections/new' element={<CollectionCreate />} />
-      <Route path='/sign-up' element={<SignUp />} />
-      <Route path='/sign-in' element={<SignIn />} />
-      <Route path='/dashboard' element={<Dashboard />} />
-      <Route path='/collections/:collectionId/items/new' element={<ItemCreate />} />
-      <Route path='/collections/:id/edit' element={<CollectionEdit/>}/>
-      <Route path='/collections/:collectionId/items/:itemId/edit' element={<ItemEdit />} />
-      <Route path='/profile/edit' element={<ProfileEdit />} />
-    </Routes>
+      <Routes>
+        <Route path='/' element={<Navigate to='/collections' />} />
+        <Route path='/collections' element={<Collections />} />
+        <Route path='/collections/:id' element={<CollectionShow />} />
+        <Route path='/collections/new' element={<CollectionCreate />} />
+        <Route path='/sign-up' element={<SignUp />} />
+        <Route path='/sign-in' element={<SignIn />} />
+        <Route path='/dashboard' element={<Dashboard />} />
+        <Route path='/collections/:collectionId/items/new' element={<ItemCreate />} />
+        <Route path='/collections/:id/edit' element={<CollectionEdit />} />
+        <Route path='/collections/:collectionId/items/:itemId/edit' element={<ItemEdit />} />
+        <Route path='/profile/edit' element={<ProfileEdit />} />
+      </Routes>
     </>
   )
 }

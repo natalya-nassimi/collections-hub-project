@@ -1,4 +1,5 @@
 import { uploadImage } from '../../services/cloudinary'
+import './ImageUploadField.css'
 
 export default function ImageUploadField({ labelText = 'Upload an image', fieldName = 'image', setImage, existingImage }) {
     
@@ -17,7 +18,7 @@ export default function ImageUploadField({ labelText = 'Upload an image', fieldN
         <div className='form-control'>
             <label htmlFor={fieldName}>{labelText}</label>
             {existingImage && (
-                <img src={existingImage} alt="currentImage" className="image-preview" />
+                <img src={existingImage} alt="currentImage" className="image-upload-preview" />
             )}
             <input type='file' name={fieldName} id={fieldName} onChange={handleFileUpload} />
         </div>
