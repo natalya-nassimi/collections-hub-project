@@ -112,7 +112,7 @@ const CollectionShow = () => {
                 </Link>
             )}
 
-            {user && collection.user !== user.id && (
+            {!user && (
                 <>
                     <p className='hint'>Only the owner can add items!</p>
                     <Link to='/sign-in'>Sign in to create your own collection!</Link>

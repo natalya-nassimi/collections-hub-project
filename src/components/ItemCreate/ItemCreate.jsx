@@ -24,7 +24,7 @@ const ITEM_TYPE_FIELDS = {
         { name: 'director', label: 'Director' },
         { name: 'genre', label: 'Genre' },
         { name: 'release_year', label: 'Release Year', type: 'number' },
-        { name: 'rating', label: 'Rating', type: 'number' },
+        { name: 'rating', label: 'Rating (/10)', type: 'number' },
         { name: 'thoughts', label: 'Thoughts' }
     ],
 
@@ -47,7 +47,7 @@ const ITEM_TYPE_FIELDS = {
     restaurant: [
         { name: 'location', label: 'Location' },
         { name: 'cuisine', label: 'Cuisine' },
-        { name: 'rating', label: 'Rating', type: 'number' },
+        { name: 'rating', label: 'Rating (/10)', type: 'number' },
         { name: 'thoughts', label: 'Thoughts' }
     ],
 
@@ -74,7 +74,7 @@ const ITEM_TYPE_FIELDS = {
 
     recipe: [
         { name: 'cuisine', label: 'Cuisine' },
-        { name: 'rating', label: 'Rating' },
+        { name: 'rating', label: 'Rating (/10)' },
         { name: 'thoughts', label: 'Thoughts' }
     ],
 

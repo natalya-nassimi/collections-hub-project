@@ -43,7 +43,7 @@ collection-show-delete {
 }
 
 .collection-image {
-    width: 50%;
+    width: 60%;
     max-height: 300px;
     object-fit: cover;
     border-radius: 16px;
@@ -54,6 +54,7 @@ collection-show-delete {
 .collection-show button {
     display: inline-block;
     margin-right: 0.75rem;
+    margin-top: 0.5rem;
     margin-bottom: 1rem;
     font-size: 16px;
 }
