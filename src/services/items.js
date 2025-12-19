@@ -28,3 +28,23 @@ export const itemDelete = (collectionId, itemId) => {
         }
     })
 }
+
+export const likeItem = (collectionId, itemId) => {
+    return api.post(
+        `/${collectionId}/items/${itemId}/like/`, {}, {
+            headers: {
+                Authorization: `Bearer ${getAccessToken()}`
+            }
+        }
+    )
+}
+
+export const unlikeItem = (collectionId, itemId) => {
+    return api.delete(
+        `/${collectionId}/items/${itemId}/like/`, {
+            headers: {
+                Authorization: `Bearer ${getAccessToken()}`
+            }
+        }
+    )
+}

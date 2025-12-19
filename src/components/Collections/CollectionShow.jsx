@@ -5,6 +5,7 @@ import { UserContext } from '../../contexts/UserContext'
 import { itemDelete } from '../../services/items'
 import LoadingIcon from '../LoadingIcon/LoadingIcon'
 import './CollectionShow.css'
+import { likeItem, unlikeItem } from '../../services/items'
 
 const CollectionShow = () => {
     const { user } = useContext(UserContext)
@@ -28,6 +29,31 @@ const CollectionShow = () => {
         }
         fetchCollection()
     }, [id])
+
+    const toggleLike = async (item) => {
+        try {
+            const res = item.liked
+                ? await unlikeItem(collection.id, item.id)
+                : await likeItem(collection.id, item.id)
+
+            setCollection(prev => ({
+                ...prev,
+                items: prev.items.map(i =>
+                    i.id === item.id
+                        ? {
+                            ...i,
+                            liked: !item.liked,
+                            likes_count: res.data.likes_count
+                        }
+                        : i
+                )
+            }))
+        } catch {
+            console.log(error.response.data)
+            setError('Could not like')
+        }
+
+    }
 
     const renderItemDetails = (item) => {
         if (!item.details) return null
@@ -149,6 +175,13 @@ const CollectionShow = () => {
                                     >
                                         Open link
                                     </a>
+                                )}
+
+                                <p>{item.likes_count} likes</p>
+                                {user && (
+                                    <button onClick={() => toggleLike(item)}>
+                                        {item.liked ? '💔 Unlike' : '❤️ Like'}
+                                    </button>
                                 )}
 
                                 {user && user.id === collection.user && (
